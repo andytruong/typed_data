@@ -1,0 +1,25 @@
+{
+    "name": "andytruong/typed_data",
+    "type": "library",
+    "description": "Typed data library",
+    "keywords": ["typed_data"],
+    "homepage": "https://github.com/andytruong/typed_data",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andy Truong"
+            , "email": "thehongtt@gmail.com"
+            , "homepage": "http://v3k.net/"
+            , "role": "Lead Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.8"
+        , "andytruong/event": "~0.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AndyTruong\\TypedData\\": "src/"
+        }
+    }
+}
