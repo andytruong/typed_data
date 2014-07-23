@@ -62,7 +62,7 @@ class Manager extends EventAware
             return $obj;
         }
 
-        throw new Exception('Unknow typed-data plugin: ' . strip_tags($id));
+        throw new InvalidArgumentException('Unknow typed-data plugin: ' . $id);
     }
 
     /**
