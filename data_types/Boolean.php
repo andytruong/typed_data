@@ -1,23 +1,23 @@
 <?php
 
-namespace AndyTruong\TypedData\Plugin;
+namespace AndyTruong\TypedData\DataType;
 
 use AndyTruong\TypedData\DataTypeBase;
 
-class Integer extends DataTypeBase
+class Boolean extends DataTypeBase
 {
 
     public function isEmpty()
     {
         if (!is_null($this->input)) {
-            return $this->input === 0;
+            return $this->input === FALSE;
         }
     }
 
     public function validateInput(&$error = NULL)
     {
-        if (!is_int($this->input)) {
-            $error = 'Input is not an integer value.';
+        if (!is_bool($this->input)) {
+            $error = 'Input is not a boolean value.';
             return FALSE;
         }
         return parent::validateInput($error);

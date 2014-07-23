@@ -1,6 +1,6 @@
 <?php
 
-namespace AndyTruong\TypedData\Plugin;
+namespace AndyTruong\TypedData\DataType;
 
 class Fn extends String
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace AndyTruong\TypedData\Plugin;
+namespace AndyTruong\TypedData\DataType;
 
 /**
  * $this->getManager()->getPlugin($schema, $input)->validate($error);

@@ -19,7 +19,8 @@
     },
     "autoload": {
         "psr-4": {
-            "AndyTruong\\TypedData\\": "src/"
+            "AndyTruong\\TypedData\\": "src/",
+            "AndyTruong\\TypedData\\DataType\\": "data_types/"
         }
     }
 }

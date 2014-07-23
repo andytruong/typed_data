@@ -1,6 +1,6 @@
 <?php
 
-namespace AndyTruong\TypedData\Plugin;
+namespace AndyTruong\TypedData\DataType;
 
 use AndyTruong\TypedData\DataTypeBase;
 use AndyTruong\TypedData\Manager;

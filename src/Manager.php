@@ -19,15 +19,15 @@ class Manager extends EventAware
 
     /** @var array */
     protected static $plugins = array(
-        'type.any'      => 'AndyTruong\TypedData\Plugin\Any',
-        'type.boolean'  => 'AndyTruong\TypedData\Plugin\Boolean',
-        'type.constant' => 'AndyTruong\TypedData\Plugin\Constant',
-        'type.function' => 'AndyTruong\TypedData\Plugin\Fn',
-        'type.integer'  => 'AndyTruong\TypedData\Plugin\Integer',
-        'type.list'     => 'AndyTruong\TypedData\Plugin\ItemList',
-        'type.callback' => 'AndyTruong\TypedData\Plugin\Callback',
-        'type.mapping'  => 'AndyTruong\TypedData\Plugin\Mapping',
-        'type.string'   => 'AndyTruong\TypedData\Plugin\String',
+        'type.any'      => 'AndyTruong\TypedData\DataType\Any',
+        'type.boolean'  => 'AndyTruong\TypedData\DataType\Boolean',
+        'type.constant' => 'AndyTruong\TypedData\DataType\Constant',
+        'type.function' => 'AndyTruong\TypedData\DataType\Fn',
+        'type.integer'  => 'AndyTruong\TypedData\DataType\Integer',
+        'type.list'     => 'AndyTruong\TypedData\DataType\ItemList',
+        'type.callback' => 'AndyTruong\TypedData\DataType\Callback',
+        'type.mapping'  => 'AndyTruong\TypedData\DataType\Mapping',
+        'type.string'   => 'AndyTruong\TypedData\DataType\String',
     );
 
     public function registerDataType($id, $class_name)
