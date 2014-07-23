@@ -2,7 +2,7 @@
 
 namespace AndyTruong\TypedData\Plugin;
 
-class Kallable extends String
+class Callback extends String
 {
 
     public function isEmpty()
