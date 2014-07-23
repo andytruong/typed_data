@@ -59,7 +59,7 @@ class ItemList extends TypeBase implements ManagerAwareInterface
 
     private function validateElementType(&$error = NULL)
     {
-        $data = at_data(array('type' => $this->element_type));
+        $data = $this->manager->getDataType(array('type' => $this->element_type));
 
         foreach ($this->input as $k => $input) {
             $data->setInput($input);
