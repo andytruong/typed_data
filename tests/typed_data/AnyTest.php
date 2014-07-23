@@ -1,20 +1,26 @@
 <?php
 
-namespace AndyTruong\TypedData\TestCases\TypedData;
+namespace AndyTruong\TypedData\TestCases;
 
-class AnyTest extends \PHPUnit_Framework_TestCase
+class AnyTest extends TypedDataTestCase
 {
+
+    private function getSchema()
+    {
+        $schema = array('type' => 'any');
+        return $schema;
+    }
 
     public function testAnyType()
     {
-        $schema = array('type' => 'any');
+        $schema = $this->getSchema();
 
         $input = array();
         $input[] = NULL;
         $input[] = 'String';
         $input[] = array('Array Input');
         foreach ($input as $_input) {
-            $data = at_data($schema, $_input);
+            $data = $this->getManager()->getDataType($schema, $_input);
             $this->assertTrue($data->validate());
             $this->assertEquals($_input, $data->getValue());
         }

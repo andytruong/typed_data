@@ -1,31 +1,36 @@
 <?php
 
-namespace AndyTruong\TypedData\TestCases\TypedData;
+namespace AndyTruong\TypedData\TestCases;
 
-class ConstantTest extends \PHPUnit_Framework_TestCase
+class ConstantTest extends TypedDataTestCase
 {
+    private function getSchema()
+    {
+        $schema = array('type' => 'constant');
+        return $schema;
+    }
 
     public function testConstantType()
     {
-        $schema = array('type' => 'constant');
+        $schema = $this->getSchema();
 
         if (!defined('MENU_DEFAULT_LOCAL_TASK')) {
             define('MENU_DEFAULT_LOCAL_TASK', 140);
         }
 
-        $data = at_data($schema, 'MENU_DEFAULT_LOCAL_TASK');
+        $data = $this->getManager()->getDataType($schema, 'MENU_DEFAULT_LOCAL_TASK');
         $this->assertTrue($data->validate($error));
         $this->assertEquals(constant('MENU_DEFAULT_LOCAL_TASK'), $data->getValue());
 
-        $data = at_data($schema, 'NON_VALID_CONSTANT_THIS_IS');
+        $data = $this->getManager()->getDataType($schema, 'NON_VALID_CONSTANT_THIS_IS');
         $this->assertFalse($data->validate($error));
         $this->assertEquals('Constant is not defined.', $error);
         $this->assertNull($data->getValue());
 
-        $data = at_data($schema, 'in valid ^^');
+        $data = $this->getManager()->getDataType($schema, 'in valid ^^');
         $this->assertFalse($data->validate($error));
 
-        $data = at_data($schema, array('also', 'invalidate'));
+        $data = $this->getManager()->getDataType($schema, array('also', 'invalidate'));
         $this->assertFalse($data->validate($error));
     }
 

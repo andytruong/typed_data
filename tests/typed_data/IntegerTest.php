@@ -1,30 +1,36 @@
 <?php
 
-namespace AndyTruong\TypedData\TestCases\TypedData;
+namespace AndyTruong\TypedData\TestCases;
 
-class IntegerTest extends \PHPUnit_Framework_TestCase
+class IntegerTest extends TypedDataTestCase
 {
+
+    private function getSchema()
+    {
+        $schema = array('type' => '');
+        return $schema;
+    }
 
     public function testIntegerType()
     {
         $schema = array('type' => 'integer');
 
-        $data = at_data($schema, 1);
+        $data = $this->getManager()->getDataType($schema, 1);
         $this->assertTrue($data->validate());
         $this->assertEquals(1, $data->getValue());
         $this->assertFalse($data->isEmpty());
 
-        $data = at_data($schema, -1);
+        $data = $this->getManager()->getDataType($schema, -1);
         $this->assertTrue($data->validate());
         $this->assertEquals(-1, $data->getValue());
         $this->assertFalse($data->isEmpty());
 
-        $data = at_data($schema, 0);
+        $data = $this->getManager()->getDataType($schema, 0);
         $this->assertTrue($data->validate());
         $this->assertEquals(0, $data->getValue());
         $this->assertTrue($data->isEmpty());
 
-        $data = at_data($schema, 'I am string');
+        $data = $this->getManager()->getDataType($schema, 'I am string');
         $this->assertFalse($data->validate());
         $this->assertNull($data->getValue());
     }

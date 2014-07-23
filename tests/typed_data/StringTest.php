@@ -1,26 +1,32 @@
 <?php
 
-namespace AndyTruong\TypedData\TestCases\TypedData;
+namespace AndyTruong\TypedData\TestCases;
 
-class StringTest extends \PHPUnit_Framework_TestCase
+class StringTest extends TypedDataTestCase
 {
+
+    private function getSchema()
+    {
+        $schema = array('type' => '');
+        return $schema;
+    }
 
     public function testStringType()
     {
         $schema = array('type' => 'string');
 
         $input = 'I am string';
-        $data = at_data($schema, $input);
+        $data = $this->getManager()->getDataType($schema, $input);
         $this->assertTrue($data->validate());
         $this->assertEquals($input, $data->getValue());
         $this->assertFalse($data->isEmpty());
 
-        $data = at_data($schema, '');
+        $data = $this->getManager()->getDataType($schema, '');
         $this->assertTrue($data->validate());
         $this->assertEquals('', $data->getValue());
         $this->assertTrue($data->isEmpty());
 
-        $data = at_data($schema, array('I am array'));
+        $data = $this->getManager()->getDataType($schema, array('I am array'));
         $this->assertFalse($data->validate());
         $this->assertNull($data->getValue());
     }

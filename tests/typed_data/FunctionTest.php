@@ -1,23 +1,29 @@
 <?php
 
-namespace AndyTruong\TypedData\TestCases\TypedData;
+namespace AndyTruong\TypedData\TestCases;
 
-class FunctionTest extends \PHPUnit_Framework_TestCase
+class FunctionTest extends TypedDataTestCase
 {
+
+    private function getSchema()
+    {
+        $schema = array('type' => 'function');
+        return $schema;
+    }
 
     public function testFunctionType()
     {
-        $schema = array('type' => 'function');
+        $schema = $this->getSchema();
 
-        $data = at_data($schema, 'at_id');
+        $data = $this->getManager()->getDataType($schema, 'date');
         $this->assertTrue($data->validate());
-        $this->assertEquals('at_id', $data->getValue());
+        $this->assertEquals('date', $data->getValue());
 
-        $data = at_data($schema, 'this_is_invalid_function');
+        $data = $this->getManager()->getDataType($schema, 'this_is_invalid_function');
         $this->assertFalse($data->validate($error));
         $this->assertEquals('Function does not exist.', $error);
 
-        $data = at_data($schema, array('I am array'));
+        $data = $this->getManager()->getDataType($schema, array('I am array'));
         $this->assertFalse($data->validate($error));
         $this->assertEquals('Function name must be a string.', $error);
     }

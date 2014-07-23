@@ -1,27 +1,33 @@
 <?php
 
-namespace AndyTruong\TypedData\TestCases\TypedData;
+namespace AndyTruong\TypedData\TestCases;
 
-class BooleanTest extends \PHPUnit_Framework_TestCase
+class BooleanTest extends TypedDataTestCase
 {
+
+    private function getSchema()
+    {
+        $schema = array('type' => 'boolean');
+        return $schema;
+    }
 
     public function testBooleanType()
     {
-        $schema = array('type' => 'boolean');
+        $schema = $this->getSchema();
 
-        $data = at_data($schema, TRUE);
-        $this->assertTrue($data->validate());
-        $this->assertTrue($data->getValue());
-        $this->assertFalse($data->isEmpty());
+        $data_1 = $this->getManager()->getDataType($schema, true);
+        $this->assertTrue($data_1->validate());
+        $this->assertTrue($data_1->getValue());
+        $this->assertFalse($data_1->isEmpty());
 
-        $data = at_data($schema, FALSE);
-        $this->assertTrue($data->validate());
-        $this->assertFalse($data->getValue());
-        $this->assertTrue($data->isEmpty());
+        $data_0 = $this->getManager()->getDataType($schema, false);
+        $this->assertTrue($data_0->validate());
+        $this->assertFalse($data_0->getValue());
+        $this->assertTrue($data_0->isEmpty());
 
-        $data = at_data($schema, 'I am string');
-        $this->assertFalse($data->validate());
-        $this->assertNull($data->getValue());
+        $data_f = $this->getManager()->getDataType($schema, 'I am string');
+        $this->assertFalse($data_f->validate());
+        $this->assertNull($data_f->getValue());
     }
 
 }
