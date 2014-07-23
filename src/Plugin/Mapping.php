@@ -3,7 +3,7 @@
 namespace AndyTruong\TypedData\Plugin;
 
 /**
- * at_data($schema, $input)->validate($error);
+ * $this->getManager()->getPlugin($schema, $input)->validate($error);
  *
  * Example schema, check `at_base/config/schema/route.yml`
  */
@@ -43,18 +43,18 @@ class Mapping extends MappingBase
         }
 
         $element_schema = array(
-            'type' => 'mapping',
+            'type'                  => 'mapping',
             'skip validate mapping' => TRUE,
-            'mapping' => array(
-                'type' => array('type' => 'string', 'required' => TRUE),
-                'required' => array('type' => 'boolean'),
-                'label' => array('type' => 'string'),
+            'mapping'               => array(
+                'type'        => array('type' => 'string', 'required' => TRUE),
+                'required'    => array('type' => 'boolean'),
+                'label'       => array('type' => 'string'),
                 'description' => array('type' => 'string'),
             )
         );
 
         foreach ($this->definition['mapping'] as $k => $e) {
-            if (!at_data($element_schema, $e)->validate($error)) {
+            if (!$this->manager->getDataType($element_schema, $e)->validate($error)) {
                 $error = "Wrong schema: {$error}";
                 return FALSE;
             }
@@ -103,7 +103,7 @@ class Mapping extends MappingBase
     {
         foreach ($this->input as $k => $v) {
             if (!empty($this->definition['mapping'][$k])) {
-                if (!at_data($this->definition['mapping'][$k], $v)->validate($error)) {
+                if (!$this->manager->getDataType($this->definition['mapping'][$k], $v)->validate($error)) {
                     $error = "Invalid property `{$k}`: {$error}";
                     return FALSE;
                 }

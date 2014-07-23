@@ -2,10 +2,25 @@
 
 namespace AndyTruong\TypedData\Plugin;
 
-abstract class MappingBase extends Base
+use AndyTruong\TypedData\Manager;
+use AndyTruong\TypedData\ManagerAwareInterface;
+
+abstract class MappingBase extends TypeBase implements ManagerAwareInterface
 {
 
     protected $allow_extra_properties = TRUE;
+
+    /** @var Manager */
+    protected $manager;
+
+    /**
+     * {@inheritdoc}
+     * @param \AndyTruong\TypedData\Plugin\Manager $manager
+     */
+    public function setManager(Manager $manager)
+    {
+        $this->manager = $manager;
+    }
 
     public function setDefinition($def)
     {
@@ -37,7 +52,7 @@ abstract class MappingBase extends Base
 
         if (isset($this->definition['mapping'][$k]['type'])) {
             $def = array('type' => $this->definition['mapping'][$k]['type']);
-            $data = at_data($def, $v);
+            $data = $this->manager->getDataType($def, $v);
             $return = $data->getValue();
         }
 
