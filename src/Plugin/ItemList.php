@@ -2,13 +2,26 @@
 
 namespace AndyTruong\TypedData\Plugin;
 
-class ItemList extends Base
+use AndyTruong\TypedData\Manager;
+use AndyTruong\TypedData\ManagerAwareInterface;
+
+class ItemList extends TypeBase implements ManagerAwareInterface
 {
 
+    /** @var string */
+    protected $element_type;
+
+    /** @var Manager */
+    protected $manager;
+
     /**
-     * @var string
+     * {@inheritdoc}
+     * @param Manager $manager
      */
-    protected $element_type = NULL;
+    public function setManager(Manager $manager)
+    {
+        $this->manager = $manager;
+    }
 
     public function setDefinition($definition)
     {
