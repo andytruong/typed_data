@@ -2,7 +2,9 @@
 
 namespace AndyTruong\TypedData\Plugin;
 
-class Integer extends TypeBase
+use AndyTruong\TypedData\DataTypeBase;
+
+class Integer extends DataTypeBase
 {
 
     public function isEmpty()

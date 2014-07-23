@@ -2,7 +2,9 @@
 
 namespace AndyTruong\TypedData\Plugin;
 
-class String extends TypeBase
+use AndyTruong\TypedData\DataTypeBase;
+
+class String extends DataTypeBase
 {
 
     public function isEmpty()

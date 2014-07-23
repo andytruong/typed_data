@@ -2,6 +2,8 @@
 
 namespace AndyTruong\TypedData\Plugin;
 
+use AndyTruong\TypedData\DataTypeBase;
+
 /**
  * @todo Support more type of constant
  *
@@ -10,7 +12,7 @@ namespace AndyTruong\TypedData\Plugin;
  *
  * @param  string $v
  */
-class Constant extends TypeBase
+class Constant extends DataTypeBase
 {
 
     public function getValue()

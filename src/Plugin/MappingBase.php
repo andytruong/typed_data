@@ -2,10 +2,11 @@
 
 namespace AndyTruong\TypedData\Plugin;
 
+use AndyTruong\TypedData\DataTypeBase;
 use AndyTruong\TypedData\Manager;
 use AndyTruong\TypedData\ManagerAwareInterface;
 
-abstract class MappingBase extends TypeBase implements ManagerAwareInterface
+abstract class MappingBase extends DataTypeBase implements ManagerAwareInterface
 {
 
     protected $allow_extra_properties = TRUE;

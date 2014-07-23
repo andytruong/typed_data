@@ -3,7 +3,7 @@
 namespace AndyTruong\TypedData;
 
 use AndyTruong\Event\EventAware;
-use AndyTruong\TypedData\Plugin\DataTypeInterface;
+use AndyTruong\TypedData\DataTypeInterface;
 use Exception;
 use InvalidArgumentException;
 
@@ -33,7 +33,7 @@ class Manager extends EventAware
     public function registerDataType($id, $class_name)
     {
         if (isset(self::$plugins[$id])) {
-            throw new Exception('Typed-data plugin is already registered: ' . strip_tags($id));
+            throw new Exception('Datatype is already registered: ' . strip_tags($id));
         }
 
         $self::$plugins[$id] = $class_name;
@@ -51,7 +51,7 @@ class Manager extends EventAware
             $obj = new self::$plugins[$id];
 
             if (!$obj instanceof DataTypeInterface) {
-                $msg = sprintf('Class for typed data %s does not implement %s', $id, 'AndyTruong\TypedData\Plugin\DataTypeInterface');
+                $msg = sprintf('Class for data type %s does not implement %s', $id, 'AndyTruong\TypedData\Plugin\DataTypeInterface');
                 throw new Exception($msg);
             }
 

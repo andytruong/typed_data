@@ -2,10 +2,11 @@
 
 namespace AndyTruong\TypedData\Plugin;
 
+use AndyTruong\TypedData\DataTypeBase;
 use AndyTruong\TypedData\Manager;
 use AndyTruong\TypedData\ManagerAwareInterface;
 
-class ItemList extends TypeBase implements ManagerAwareInterface
+class ItemList extends DataTypeBase implements ManagerAwareInterface
 {
 
     /** @var string */

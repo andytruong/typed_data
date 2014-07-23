@@ -2,7 +2,9 @@
 
 namespace AndyTruong\TypedData\Plugin;
 
-class Any extends TypeBase
+use AndyTruong\TypedData\DataTypeBase;
+
+class Any extends DataTypeBase
 {
 
 }
