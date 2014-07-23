@@ -5,23 +5,25 @@ namespace AndyTruong\TypedData\TestCases;
 class TestDefaultValue extends DataType\TypedDataTestCase
 {
 
-    public function getSchema()
+    /**
+     * @dataProvider sourceDefaultValue
+     */
+    public function testDefaultValue($schema)
     {
-        return [
-            'label'   => 'Person',
-            'type'    => 'mapping',
-            'mapping' => [
-                'name' => ['type' => 'string', 'default' => 'James T.'],
-                'age'  => ['type' => 'integer', 'default' => 1]
-            ]
-        ];
+        $person = $this->getManager()->getDataType($schema);
+        $this->assertEquals($schema['default'], $person->getValue());
     }
 
-    public function testDefaultValue()
+    public function sourceDefaultValue()
     {
-        $schema = $this->getSchema();
-        $person = $this->getManager()->getDataType($schema);
-        $person->getDefinition();
+        return [
+            [['type' => 'boolean', 'default' => true]],
+            [['type' => 'boolean', 'default' => false]],
+            [['type' => 'integer', 'default' => 0]],
+            [['type' => 'integer', 'default' => 3]],
+            [['type' => 'string', 'default' => '']],
+            [['type' => 'string', 'default' => 'Hello PHP!']],
+        ];
     }
 
 }

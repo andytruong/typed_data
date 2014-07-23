@@ -25,7 +25,7 @@ abstract class MappingBase extends DataTypeBase implements ManagerAwareInterface
 
     public function setDefinition($def)
     {
-        $this->definition = $def;
+        parent::setDefinition($def);
 
         if (isset($def['allow_extra_properties'])) {
             $this->allow_extra_properties = $def['allow_extra_properties'];

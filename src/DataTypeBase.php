@@ -19,9 +19,14 @@ abstract class DataTypeBase implements DataTypeInterface
         !is_null($input) && $this->setInput($input);
     }
 
-    public function setDefinition($definition)
+    public function setDefinition($def)
     {
-        $this->definition = $definition;
+        $this->definition = $def;
+
+        if (isset($this->definition['default']) && null === $this->input) {
+            $this->input = $this->definition['default'];
+        }
+
         return $this;
     }
 
