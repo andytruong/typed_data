@@ -108,7 +108,9 @@ class Manager extends EventAware
 
         $plugin = $this->findDataTypeFromDefinition($definition);
         $plugin->setDefinition($definition);
-        $plugin->setInput($input);
+        if (null !== $input) {
+            $plugin->setInput($input);
+        }
         return $plugin;
     }
 
