@@ -57,6 +57,10 @@ class Manager extends EventAware
                 $msg = sprintf('Class for typed data %s does not implement %s', strip_tags($id), $expected_interface);
                 throw new Exception($msg);
             }
+            if ($obj instanceof ManagerAwareInterface) {
+                $obj->setManager($this);
+            }
+
             return $obj;
         }
 
