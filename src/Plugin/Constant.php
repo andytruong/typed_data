@@ -10,7 +10,7 @@ namespace AndyTruong\TypedData\Plugin;
  *
  * @param  string $v
  */
-class Constant extends Base
+class Constant extends TypeBase
 {
 
     public function getValue()

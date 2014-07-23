@@ -2,7 +2,7 @@
 
 namespace AndyTruong\TypedData\Plugin;
 
-class Boolean extends Base
+class Boolean extends TypeBase
 {
 
     public function isEmpty()

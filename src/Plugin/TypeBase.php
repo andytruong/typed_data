@@ -2,13 +2,16 @@
 
 namespace AndyTruong\TypedData\Plugin;
 
-abstract class Base implements PluginInterface
+abstract class TypeBase implements DataTypeInterface
 {
 
+    /** @var array */
     protected $definition;
+
+    /** @var mixed */
     protected $input;
 
-    public function __construct($definition = NULL, $input = NULL)
+    public function __construct($definition = null, $input = null)
     {
         !is_null($definition) && $this->setDefinition($definition);
         !is_null($input) && $this->setInput($input);
@@ -45,7 +48,7 @@ abstract class Base implements PluginInterface
      * Alias of self::validate()
      * @return boolean
      */
-    public function isValid(&$error = NULL)
+    public function isValid(&$error = null)
     {
         return $this->validate($error);
     }
@@ -57,7 +60,7 @@ abstract class Base implements PluginInterface
         }
     }
 
-    public function validate(&$error = NULL)
+    public function validate(&$error = null)
     {
         return $this->validateDefinition($error) && $this->validateInput($error);
     }
@@ -66,9 +69,9 @@ abstract class Base implements PluginInterface
     {
         if (!is_array($this->definition)) {
             $error = 'Data definition must be an array.';
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     protected function validateInput(&$error)
@@ -76,20 +79,18 @@ abstract class Base implements PluginInterface
         if (!empty($this->definition['validate'])) {
             return $this->validateUserCallacks($error);
         }
-        return TRUE;
+        return true;
     }
 
     protected function validateUserCallacks(&$error)
     {
         foreach ($this->definition['validate'] as $callback) {
-            if (is_callable($callback)) {
-                if (!$callback($this->input, $error)) {
-                    return FALSE;
-                }
+            if (is_callable($callback) && !$callback($this->input, $error)) {
+                return false;
             }
         }
 
-        return TRUE;
+        return true;
     }
 
 }

@@ -2,7 +2,7 @@
 
 namespace AndyTruong\TypedData\Plugin;
 
-class Integer extends Base
+class Integer extends TypeBase
 {
 
     public function isEmpty()

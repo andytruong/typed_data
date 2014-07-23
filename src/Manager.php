@@ -2,9 +2,10 @@
 
 namespace AndyTruong\TypedData;
 
-use AndyTruong\TypedData\Plugin\PluginInterface;
 use AndyTruong\Event\EventAware;
+use AndyTruong\TypedData\Plugin\DataTypeInterface;
 use Exception;
+use InvalidArgumentException;
 
 /**
  * Manager for typed-data feature.
@@ -16,23 +17,20 @@ class Manager extends EventAware
 
     protected $em_name = 'at.typed_data';
 
-    /**
-     *
-     * @var array
-     */
+    /** @var array */
     protected static $plugins = array(
-        'type.any' => 'AndyTruong\TypedData\Plugin\Any',
-        'type.boolean' => 'AndyTruong\TypedData\Plugin\Boolean',
+        'type.any'      => 'AndyTruong\TypedData\Plugin\Any',
+        'type.boolean'  => 'AndyTruong\TypedData\Plugin\Boolean',
         'type.constant' => 'AndyTruong\TypedData\Plugin\Constant',
         'type.function' => 'AndyTruong\TypedData\Plugin\Fn',
-        'type.integer' => 'AndyTruong\TypedData\Plugin\Integer',
-        'type.list' => 'AndyTruong\TypedData\Plugin\ItemList',
-        'type.closure' => 'AndyTruong\TypedData\Plugin\Kallable',
-        'type.mapping' => 'AndyTruong\TypedData\Plugin\Mapping',
-        'type.string' => 'AndyTruong\TypedData\Plugin\String',
+        'type.integer'  => 'AndyTruong\TypedData\Plugin\Integer',
+        'type.list'     => 'AndyTruong\TypedData\Plugin\ItemList',
+        'type.callback' => 'AndyTruong\TypedData\Plugin\Callback',
+        'type.mapping'  => 'AndyTruong\TypedData\Plugin\Mapping',
+        'type.string'   => 'AndyTruong\TypedData\Plugin\String',
     );
 
-    public function registerPlugin($id, $class_name)
+    public function registerDataType($id, $class_name)
     {
         if (isset(self::$plugins[$id])) {
             throw new Exception('Typed-data plugin is already registered: ' . strip_tags($id));
@@ -43,7 +41,7 @@ class Manager extends EventAware
         return true;
     }
 
-    protected function loadPlugin($id)
+    protected function loadDataType($id)
     {
         if (!isset(self::$plugins[$id])) {
             $this->trigger('at.typed_data.plugin.load', $this, array('id' => $id));
@@ -51,12 +49,12 @@ class Manager extends EventAware
 
         if (isset(self::$plugins[$id]) && class_exists(self::$plugins[$id])) {
             $obj = new self::$plugins[$id];
-            $expected_interface = 'AndyTruong\TypedData\Plugin\PluginInterface';
-            $implemented_interfaces = class_implements($obj);
-            if (!in_array($expected_interface, $implemented_interfaces)) {
-                $msg = sprintf('Class for typed data %s does not implement %s', strip_tags($id), $expected_interface);
+
+            if (!$obj instanceof DataTypeInterface) {
+                $msg = sprintf('Class for typed data %s does not implement %s', $id, 'AndyTruong\TypedData\Plugin\DataTypeInterface');
                 throw new Exception($msg);
             }
+
             if ($obj instanceof ManagerAwareInterface) {
                 $obj->setManager($this);
             }
@@ -71,9 +69,9 @@ class Manager extends EventAware
      * Get plugin object from typed-data definition.
      *
      * @param array $definition
-     * @return PluginInterface
+     * @return DataTypeInterface
      */
-    protected function findPluginFromDefinition(&$definition)
+    protected function findDataTypeFromDefinition(array &$definition)
     {
         if (0 === strpos($definition['type'], 'type.')) {
             $id = $definition['type'];
@@ -87,18 +85,18 @@ class Manager extends EventAware
             $id = 'type.list';
         }
 
-        return $this->loadPlugin($id);
+        return $this->loadDataType($id);
     }
 
     /**
      * Wrapper method to get typed-data plugin.
      *
      * @param array $definition
-     * @param type $input
-     * @return PluginInterface
+     * @param mixed $input
+     * @return DataTypeInterface
      * @throws \Exception
      */
-    public function getPlugin($definition, $input)
+    public function getDataType(array $definition, $input = null)
     {
         if (!is_array($definition)) {
             throw new Exception('Definition must be an array.');
@@ -108,7 +106,7 @@ class Manager extends EventAware
             throw new Exception('Missing type key');
         }
 
-        $plugin = $this->findPluginFromDefinition($definition);
+        $plugin = $this->findDataTypeFromDefinition($definition);
         $plugin->setDefinition($definition);
         $plugin->setInput($input);
         return $plugin;
