@@ -1,6 +1,6 @@
 <?php
 
-namespace AndyTruong\TypedData\TestCases;
+namespace AndyTruong\TypedData\TestCases\DataType;
 
 class IntegerTest extends TypedDataTestCase
 {

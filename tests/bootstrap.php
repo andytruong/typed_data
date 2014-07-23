@@ -7,6 +7,7 @@ foreach ($locations as $location) {
     if (is_file($location)) {
         $loader = require $location;
         $loader->addPsr4('AndyTruong\\TypedData\\TestCases\\', __DIR__ . '/typed_data');
+        $loader->addPsr4('AndyTruong\\TypedData\\TestCases\\DataType\\', __DIR__ . '/data_types');
         $loader->addPsr4('AndyTruong\\TypedData\\', __DIR__ . '/../src');
         break;
     }

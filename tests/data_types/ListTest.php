@@ -1,6 +1,6 @@
 <?php
 
-namespace AndyTruong\TypedData\TestCases;
+namespace AndyTruong\TypedData\TestCases\DataType;
 
 use stdClass;
 

@@ -1,9 +1,10 @@
 <?php
 
-namespace AndyTruong\TypedData\TestCases;
+namespace AndyTruong\TypedData\TestCases\DataType;
 
 class ConstantTest extends TypedDataTestCase
 {
+
     private function getSchema()
     {
         $schema = array('type' => 'constant');
